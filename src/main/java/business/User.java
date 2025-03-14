@@ -1,6 +1,7 @@
 package business;
 
 public class User {
-    //TODO: Fill class.
+    private String username;
+    private String password;
 
 }
