@@ -40,18 +40,28 @@ public class User {
      */
     public boolean setUserName(String username) {
         //Validation
-        //TODO: Put username validation into separate method
-        if(username == null) {
-            throw new IllegalArgumentException("Given username is null. Check username argument as this is NOT a valid username.");
-        }
-        if(username.isBlank()) {
-            throw new IllegalArgumentException("Given username was "+username+", which is NOT valid as a username cannot contain only whitespaces.");
-        }
-
+        validUsername(username);
         //TODO: Implement method for searching a list type for matching usernames
         
         
         this.username = username;
         return true;
+    }
+
+    /**
+     * Validates a given username.
+     * 
+     * @param username Given username
+     * @return true if username is valid, false otherwise
+     * @throws NullPointerException If given username is null.
+     * @throws IllegalArgumentException If given username is a blank String
+     */
+    private void validUsername(String username) {
+        if(username == null) {
+            throw new NullPointerException("Given username is null. Check username argument as this is NOT a valid username.");
+        }
+        if(username.isBlank()) {
+            throw new IllegalArgumentException("Given username was "+username+" which is blank and NOT allowed as s username");
+        }
     }
 }
