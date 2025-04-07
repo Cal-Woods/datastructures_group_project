@@ -1,4 +1,4 @@
-package business;
+package utils;
 
 public class LinkedList {
     private int numElements;
