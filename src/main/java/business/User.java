@@ -2,6 +2,8 @@ package business;
 
 /**
  * A basic user information entity that holds a username & password.
+ * 
+ * @author Cal Woods
  */
 public class User {
     private String username;
