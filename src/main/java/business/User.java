@@ -56,7 +56,7 @@ public class User {
      * @throws NullPointerException If given username is null.
      * @throws IllegalArgumentException If given username is a blank String
      */
-    private void validUsername(String username) {
+    private static void validUsername(String username) {
         if(username == null) {
             throw new NullPointerException("Given username is null. Check username argument as this is NOT a valid username.");
         }
