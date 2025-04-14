@@ -6,6 +6,19 @@ public class LinkedList {
     private node first;
     private node last;
 
+    /**
+     * No-argument constructor initialising the list to default settings.
+     */
+    public LinkedList(){
+        this.first = null;
+        this.last = null;
+        this.numElements = 0;
+    }
+
+    public int size(){
+        return numElements;
+    }
+
 
 
 
