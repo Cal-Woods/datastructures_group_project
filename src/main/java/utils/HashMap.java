@@ -1,5 +1,6 @@
 package utils;
 
+import business.Agent;
 import business.User;
 
 /**
@@ -24,6 +25,33 @@ public class HashMap {
         this.count = 0;
     }
 
+
+
+    /**
+     * Calculates a number corresponding to a slot in the HashMap instance.
+     * 
+     * @param target The User object to use in calculation of hash
+     * 
+     * @return number of a slot in HashMap instance
+     */
+    private int calcSlot(User target) {
+        //Declare an int hash equal to -1
+        int hash = -1;
+
+        //Check User or Agent
+        if(target instanceof Agent) {
+            //Set hash to (target.hashCode mod INITIAL_SIZE)
+            hash = ((Agent)target).hashCode() % INITIAL_SIZE;
+        }
+        
+        else if(target instanceof User) {
+            //Set hash to (target.hashCode mod INITIAL_SIZE)
+            hash = target.hashCode() % INITIAL_SIZE;
+        }
+
+        return hash;
+    }
+
     /**
     * A wrapper class for HashMap key:value pairs.
     */
@@ -46,3 +74,5 @@ public class HashMap {
         }
     }
 }
+
+
