@@ -84,12 +84,68 @@ public class LinkedList {
         return current.data;
     }
 
+    /**
+     * this method removes a specified pos from linkedlist
+     * @param pos
+     * @return
+     */
+    public String remove(int pos){
+        // Validation
+        if(isEmpty() || pos < 0 || pos >= numElements){
+            throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements-1) + " inclusive. " +
+                    "(Supplied" +
+                    " index was" +
+                    " " + pos+")");
+        }
+
+        String removed = null;
+        // Remove from start of list
+        // If position to remove from is 0 (i.e. start of list)
+        if(pos == 0){
+            // Snip off/jump over first element in list
+            removed = first.data;
+            first = first.next;
+            // If the list is now empty (i.e. there was only one element in the list before we did the remove)
+            if(first == null){
+                // Wipe last node too
+                last = null;
+            }
+        }else {
+            // Create current node to track our current position in list (Tomasz in class example)
+            Node current = first;
+            // Create prev node to track the position of the node before us (Bema in class example)
+            Node prev = null;
+
+            // Loop up to position from which we should remove
+            for(int i = 0; i < pos; i++){
+                prev = current;
+                current = current.next;
+            }
+            removed = current.data;
+            // "Snip" node to be removed from list
+            // This will make the node before us (Bema) point to the node after us (Oscar),
+            // essentially routing the list around us (Tomasz) and ignoring us entirely
+            prev.next = current.next;
+            // Remove our link to the list so we know we're not in it anymore
+            current.next = null;
+            // If there is nothing after prev (i.e. we've reached the end of the list)
+            if(prev.next == null){
+                // Call this element the new end of the list
+                last = prev;
+            }
+        }
+        // Decrease the number of elements in the list as one has been removed
+        numElements--;
+
+        return removed;
+    }
 
 
 
 
 
-public static class Node {
+
+    public static class Node {
     private String data;
     private Node next;
 
