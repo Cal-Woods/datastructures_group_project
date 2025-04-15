@@ -43,15 +43,13 @@ public class User {
     public boolean setUserName(String username) {
         //Validation
         validUsername(username);
-        //TODO: Implement method for searching a list type for matching usernames
-        
         
         this.username = username;
         return true;
     }
 
     /**
-     * Validates a given username.
+     * Validates a given username, can also be used to partially validate a given password value.
      * 
      * @param username Given username
      * @return true if username is valid, false otherwise
@@ -65,5 +63,22 @@ public class User {
         if(username.isBlank()) {
             throw new IllegalArgumentException("Given username was "+username+" which is blank and NOT allowed as s username");
         }
+    }
+
+    /**
+     * Sets a given new password for User object instance.
+     * @param newPass Given new password
+     * 
+     * @throws IllegalArgumentException If given new password has a length of < 8
+     */
+    public void setPassword(String newPass) {
+        //Validation
+        validUsername(newPass);
+
+        if(newPass.length() < 8) {
+            throw new IllegalArgumentException("Given new pass was too short! Must be at least eight characters in length!");
+        }
+
+        this.password = newPass;
     }
 }
