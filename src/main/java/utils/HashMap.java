@@ -105,6 +105,23 @@ public class HashMap {
         public User getValue() {
             return this.value;
         }
+
+        /**
+         * Updates the slot's User password value with given new value.
+         * @param newValue Given new value
+         */
+        public String updatePassValue(String newValue) {
+            //Validation
+            if(newValue == null) {
+                throw new NullPointerException("Given new value is null! Please give a non-null User object as value");
+            }
+
+            String oldValue = this.value.getPassword();
+
+            this.value.setPassword(newValue);
+
+            return oldValue;
+        }
     }
 }
 
