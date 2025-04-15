@@ -1,83 +1,72 @@
 package utils;
 
+
+import business.User;
+
 public class LinkedList {
     private int numElements;
-
     private Node first;
     private Node last;
 
     /**
-     * No-argument constructor initialising the list to default settings.
+     * No-argument constructor initializing the list to default settings.
      */
-    public LinkedList(){
+    public LinkedList() {
         this.first = null;
         this.last = null;
         this.numElements = 0;
     }
 
     /**
-     * Size Method for linkedlist
-     * @return
+     * Returns the number of users in the list.
      */
-    public int size(){
+    public int size() {
         return numElements;
     }
 
     /**
-     * Add the specified element to the end of this list.
-     * @param value the element to be added to this list
-     * @throws IllegalArgumentException if the value to be added is null
+     * Adds a user to the end of this list.
+     * @param user the User to be added to the list
+     * @throws IllegalArgumentException if the user is null
      */
-    public void add(String value){
-        // VALIDATION
-        if(value == null){
-            throw new IllegalArgumentException("Null cannot be added to list");
+    public void add(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Cannot add null user to list");
         }
-        // SET UP:
-        // Wrap incoming data in node
-        Node newNode = new Node(value);
 
-        // LOGIC:
-        // Deal with adding first element to list
-        // If the list does not already have a value / is empty
-        if(first == null){
-            // Set the first element in the list to be the new node
+        Node newNode = new Node(user);
+
+        if (first == null) {
             first = newNode;
             last = newNode;
-        }else{
+        } else {
             last.next = newNode;
             last = newNode;
         }
 
         numElements++;
     }
+
     /**
-     * Returns true if this list contains no elements.
-     * @return True if this list contains no elements, false otherwise
+     * Returns true if this list contains no users.
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return numElements == 0;
-        // Could also use this condition:
-        // return first == null;
     }
 
     /**
-     * Returns the element at the specified position in this list.
-     * @param index index of the element to return
-     * @return the element at the specified position in this list
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= numElements) or the list
-     * is empty
+     * Returns the user at the specified position in this list.
+     * @param index position of the user to retrieve
+     * @return the User at the specified index
+     * @throws IndexOutOfBoundsException if index is out of range
      */
-    public String get(int index){
-        // VALIDATION:
-        if(isEmpty() || index < 0 || index >= numElements){
-            throw new IndexOutOfBoundsException("Index must be between 0 and " + numElements + ". (Supplied index was" +
-                    " " + index+")");
+    public User get(int index) {
+        if (isEmpty() || index < 0 || index >= numElements) {
+            throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements - 1) + ", supplied: " + index);
         }
 
-        // SET UP:
         Node current = first;
-        for(int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
 
@@ -85,74 +74,55 @@ public class LinkedList {
     }
 
     /**
-     * this method removes a specified pos from linkedlist
-     * @param pos
-     * @return
+     * Removes the user at the specified position from the list.
+     * @param pos position of the user to remove
+     * @return the removed User
      */
-    public String remove(int pos){
-        // Validation
-        if(isEmpty() || pos < 0 || pos >= numElements){
-            throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements-1) + " inclusive. " +
-                    "(Supplied" +
-                    " index was" +
-                    " " + pos+")");
+    public User remove(int pos) {
+        if (isEmpty() || pos < 0 || pos >= numElements) {
+            throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements - 1) + ", supplied: " + pos);
         }
 
-        String removed = null;
-        // Remove from start of list
-        // If position to remove from is 0 (i.e. start of list)
-        if(pos == 0){
-            // Snip off/jump over first element in list
+        User removed;
+
+        if (pos == 0) {
             removed = first.data;
             first = first.next;
-            // If the list is now empty (i.e. there was only one element in the list before we did the remove)
-            if(first == null){
-                // Wipe last node too
+            if (first == null) {
                 last = null;
             }
-        }else {
-            // Create current node to track our current position in list (Tomasz in class example)
+        } else {
             Node current = first;
-            // Create prev node to track the position of the node before us (Bema in class example)
             Node prev = null;
 
-            // Loop up to position from which we should remove
-            for(int i = 0; i < pos; i++){
+            for (int i = 0; i < pos; i++) {
                 prev = current;
                 current = current.next;
             }
+
             removed = current.data;
-            // "Snip" node to be removed from list
-            // This will make the node before us (Bema) point to the node after us (Oscar),
-            // essentially routing the list around us (Tomasz) and ignoring us entirely
             prev.next = current.next;
-            // Remove our link to the list so we know we're not in it anymore
             current.next = null;
-            // If there is nothing after prev (i.e. we've reached the end of the list)
-            if(prev.next == null){
-                // Call this element the new end of the list
+
+            if (prev.next == null) {
                 last = prev;
             }
         }
-        // Decrease the number of elements in the list as one has been removed
-        numElements--;
 
+        numElements--;
         return removed;
     }
 
-
-
-
-
-
+    /**
+     * Internal Node class to hold User objects.
+     */
     public static class Node {
-    private String data;
-    private Node next;
+        private User data;
+        private Node next;
 
-    public Node(String data) {
-        this.data = data;
-        this.next = null;
+        public Node(User data) {
+            this.data = data;
+            this.next = null;
+        }
     }
-}
-
 }
