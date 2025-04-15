@@ -41,15 +41,21 @@ public class HashMap {
         }
 
         //Validate key is NOT already present in slot list
-        if(!isKeyPresent(calculated, user.getUsername())) {
-            
+        if(isKeyPresent(calculated, user.getUsername())) {
+            System.err.println("Incoming key value is already present in slot list of HashMap instance.");
+
+            return null; 
         }
 
         //Add Entry objects to slotLists at calculated
-        slotLists[calculated].add("");
+        //TODO: Fix LinkedList to hold Entry objects.
+        //slotLists[calculated].add(new Entry(user.getUsername(), user));
 
         return user;
     }
+
+
+    //public 
 
     /**
      * Calculates a number corresponding to a slot in the HashMap instance.
