@@ -25,7 +25,24 @@ public class HashMap {
         this.count = 0;
     }
 
+    public User put(User user) {
+        //Validation
+        if(user == null) {
+            throw new NullPointerException("Given User object is null which is NOT allowed!");
+        }
+        
+        //Declare int calculated to store calculated slot
+        int calculated = calcSlot(user);
 
+        //Check if calculated slot is empty
+        if(slotLists[calculated] == null) {
+            //Initialise slot
+            slotLists[calculated] = new LinkedList();
+        }
+
+        //Add entry to slotLists at calculated
+        slotLists[calculated].add("");
+    }
 
     /**
      * Calculates a number corresponding to a slot in the HashMap instance.
@@ -57,7 +74,7 @@ public class HashMap {
     */
     private static class Entry {
         //Attributes
-        private String key;
+        private final String key;
         private User user;
 
         //Constructor
