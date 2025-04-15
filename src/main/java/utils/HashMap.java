@@ -75,19 +75,35 @@ public class HashMap {
     private static class Entry {
         //Attributes
         private final String key;
-        private User user;
+        private User value;
 
         //Constructor
-        public Entry(String key, User user) {
+        public Entry(String key, User value) {
             if(key == null) {
                 throw new NullPointerException("Given key was null which is NOT allowed!");
             }
-            if(user == null) {
+            if(value == null) {
                 throw new NullPointerException("Given User object was null which is NOT allowed!");
             }
 
             this.key = key;
-            this.user = user;
+            this.value = value;
+        }
+
+        /**
+         * Gives key for instance value in HashMap instance.
+         * @return Key for value User object
+         */
+        public String getKey() {
+            return this.key;
+        }
+
+        /**
+         * Gets the value of a slot.
+         * @return A User object value
+         */
+        public User getValue() {
+            return this.value;
         }
     }
 }
