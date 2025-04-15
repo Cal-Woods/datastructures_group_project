@@ -40,8 +40,15 @@ public class HashMap {
             slotLists[calculated] = new LinkedList();
         }
 
-        //Add entry to slotLists at calculated
+        //Validate key is NOT already present in slot list
+        if(!isKeyPresent(calculated, user.getUsername())) {
+            
+        }
+
+        //Add Entry objects to slotLists at calculated
         slotLists[calculated].add("");
+
+        return user;
     }
 
     /**
@@ -69,7 +76,23 @@ public class HashMap {
         return hash;
     }
 
-    
+    /**
+     * Checks if given key is already present in given HashMap slot.
+     * @param slot Given HashMap slot
+     * @param key Given key
+     * @return False if key is not present in slot list, true otherwise.
+     */
+    private boolean isKeyPresent(int slot, String key) {
+        //Initialise for loop 
+        for (int i = 0; i < slotLists[slot].size(); i++) {
+            //Check Entry key is same as given key
+            if (slotLists[slot].get(i).getKey().equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
 
 
