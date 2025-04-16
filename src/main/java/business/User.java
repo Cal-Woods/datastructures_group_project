@@ -19,9 +19,10 @@ public class User {
         validPassword(password);
 
         this.username = username;
-        this.password = password;
-
-        //TODO: Hash password using bcrypt
+        
+        //TODO: Hash password using bcrypt:
+        
+        //this.password = password;
     }
 
     //Getters
