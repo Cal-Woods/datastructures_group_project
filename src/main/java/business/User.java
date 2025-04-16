@@ -52,7 +52,6 @@ public class User {
      * Validates a given username, can also be used to partially validate a given password value.
      * 
      * @param username Given username
-     * @return true if username is valid, false otherwise
      * @throws NullPointerException If given username is null.
      * @throws IllegalArgumentException If given username is a blank String
      */
@@ -66,6 +65,20 @@ public class User {
     }
 
     /**
+     * Validates given password.
+     * 
+     * @param password Given password
+     */
+    private static void validPassword(String password) {
+        //Validation
+        validUsername(password);
+
+        if(password.length() < 8) {
+            throw new IllegalArgumentException("Given password was too short! Must be at least eight characters in length!");
+        }
+    }
+
+    /**
      * Sets a given new password for User object instance.
      * @param newPass Given new password
      * 
@@ -73,11 +86,7 @@ public class User {
      */
     public void setPassword(String newPass) {
         //Validation
-        validUsername(newPass);
-
-        if(newPass.length() < 8) {
-            throw new IllegalArgumentException("Given new pass was too short! Must be at least eight characters in length!");
-        }
+        validPassword(newPass);
 
         this.password = newPass;
     }
