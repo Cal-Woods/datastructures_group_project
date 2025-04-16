@@ -9,6 +9,21 @@ public class User {
     private String username;
     private String password;
 
+    //Cnstructors
+    /**
+     * Creates a User account with a given username & given password.
+     */
+    public User(String username, String password) {
+        //Validation
+        validUsername(username);
+        validPassword(password);
+
+        this.username = username;
+        this.password = password;
+
+        //TODO: Hash password using bcrypt
+    }
+
     //Getters
     /**
      * Gets username of User object instance.
@@ -72,7 +87,7 @@ public class User {
     private static void validPassword(String password) {
         //Validation
         validUsername(password);
-
+        
         if(password.length() < 8) {
             throw new IllegalArgumentException("Given password was too short! Must be at least eight characters in length!");
         }
