@@ -15,14 +15,8 @@ public class User {
      */
     public User(String username, String password) {
         //Validation
-        validUsername(username);
-        validPassword(password);
-
-        this.username = username;
-        
-        //TODO: Hash password using bcrypt:
-        
-        //this.password = password;
+        setUserName(username);
+        setPassword(password);
     }
 
     //Getters
@@ -103,7 +97,8 @@ public class User {
     public void setPassword(String newPass) {
         //Validation
         validPassword(newPass);
-
+        //TODO: Hash password using bcrypt
+        
         this.password = newPass;
     }
 }
