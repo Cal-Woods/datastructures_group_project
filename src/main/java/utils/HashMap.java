@@ -51,6 +51,7 @@ public class HashMap {
         //TODO: Fix LinkedList to hold Entry objects.
         slotLists[calculated].add(new Entry(user.getUsername(), user));
 
+        count++;
         return user;
     }
 
@@ -77,12 +78,14 @@ public class HashMap {
         //Check User or Agent
         if(target instanceof Agent) {
             //Set hash to (target.hashCode mod INITIAL_SIZE)
-            hash = ((Agent)target).hashCode() % INITIAL_SIZE;
+            Agent agent = ((Agent)target);
+
+            hash = Math.abs(agent.hashCode()) % INITIAL_SIZE;
         }
         
         else if(target instanceof User) {
             //Set hash to (target.hashCode mod INITIAL_SIZE)
-            hash = target.hashCode() % INITIAL_SIZE;
+            hash = Math.abs(target.hashCode()) % INITIAL_SIZE;
         }
 
         return hash;
