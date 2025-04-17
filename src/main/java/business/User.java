@@ -101,4 +101,42 @@ public class User {
         
         this.password = newPass;
     }
+
+
+    @Override
+    public String toString() {
+        return "Username: "+this.username+"\nPassword: ********";
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 17;
+
+        int hash = this.username.hashCode() + PRIME;
+
+        return hash * PRIME;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        //Validation
+        if(obj == null) {
+            throw new NullPointerException("Given obj is null which is NOT allowed!");
+        }
+        //Declare User object
+        User user = null;
+        //Check if given obj is instance of User
+        if(obj instanceof User) {
+            user = ((User)obj);
+        }
+
+        //Check if username attributes are equal
+        if((user).getUsername().equals(this.username)) {
+            return true;
+        }
+
+        return false;
+    }
 }
