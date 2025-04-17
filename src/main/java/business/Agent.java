@@ -9,4 +9,13 @@ public class Agent extends User {
     private LinkedList openTickets;
     private LinkedList closedTickets;
 
+
+    public Agent(String username, String password, int agentID, String agentName) {
+        super(username, password);
+        this.agentID = agentID;
+        this.agentName = agentName;
+        this.openTickets = new LinkedList();
+        this.closedTickets = new LinkedList();
+    }
+
 }
