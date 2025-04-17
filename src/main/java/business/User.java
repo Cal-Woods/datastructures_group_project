@@ -9,6 +9,16 @@ public class User {
     private String username;
     private String password;
 
+    //Cnstructors
+    /**
+     * Creates a User account with a given username & given password.
+     */
+    public User(String username, String password) {
+        //Validation
+        setUserName(username);
+        setPassword(password);
+    }
+
     //Getters
     /**
      * Gets username of User object instance.
@@ -52,7 +62,6 @@ public class User {
      * Validates a given username, can also be used to partially validate a given password value.
      * 
      * @param username Given username
-     * @return true if username is valid, false otherwise
      * @throws NullPointerException If given username is null.
      * @throws IllegalArgumentException If given username is a blank String
      */
@@ -66,6 +75,22 @@ public class User {
     }
 
     /**
+     * Validates given password.
+     * 
+     * @param password Given password
+     * 
+     * @throws IllegalArgumentException If password length is less than 8 characters
+     */
+    private static void validPassword(String password) {
+        //Validation
+        validUsername(password);
+        
+        if(password.length() < 8) {
+            throw new IllegalArgumentException("Given password was too short! Must be at least eight characters in length!");
+        }
+    }
+
+    /**
      * Sets a given new password for User object instance.
      * @param newPass Given new password
      * 
@@ -73,12 +98,49 @@ public class User {
      */
     public void setPassword(String newPass) {
         //Validation
-        validUsername(newPass);
+        validPassword(newPass);
+        //TODO: Hash password using bcrypt
+        
+        this.password = newPass;
+    }
 
-        if(newPass.length() < 8) {
-            throw new IllegalArgumentException("Given new pass was too short! Must be at least eight characters in length!");
+
+    @Override
+    public String toString() {
+        return "Username: "+this.username+"\nPassword: ********";
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 17;
+
+        int hash = this.username.hashCode() + PRIME;
+
+        return hash * PRIME;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        //Validation
+        if(obj == null) {
+            throw new NullPointerException("Given obj is null which is NOT allowed!");
+        }
+        
+        //Check if given obj is instance of User
+        if(!(obj instanceof User)) {
+            return false;
         }
 
-        this.password = newPass;
+        //Declare User object
+        User user = ((User)obj);
+
+        //Check if username attributes are equal
+        if((user).getUsername().equals(this.username)) {
+            return true;
+        }
+
+        return false;
     }
 }

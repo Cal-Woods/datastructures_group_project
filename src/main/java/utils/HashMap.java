@@ -40,8 +40,28 @@ public class HashMap {
             slotLists[calculated] = new LinkedList();
         }
 
-        //Add entry to slotLists at calculated
-        slotLists[calculated].add("");
+        //TODO: Validate key is NOT already present in slot list
+        // if(isKeyPresent(calculated, user.getUsername())) {
+        //     System.err.println("Incoming key value is already present in slot list of HashMap instance.");
+
+        //     return null; 
+        // }
+
+        //Add Entry objects to slotLists at calculated
+        //TODO: Fix LinkedList to hold Entry objects.
+        slotLists[calculated].add(new Entry(user.getUsername(), user));
+
+        count++;
+        return user;
+    }
+
+    /**
+     * Gets the current count of elements in HashMap instance.
+     * 
+     * @return The count of elements
+     */
+    public int getCount() {
+        return count;
     }
 
     /**
@@ -58,18 +78,36 @@ public class HashMap {
         //Check User or Agent
         if(target instanceof Agent) {
             //Set hash to (target.hashCode mod INITIAL_SIZE)
-            hash = ((Agent)target).hashCode() % INITIAL_SIZE;
+            Agent agent = ((Agent)target);
+
+            hash = Math.abs(agent.hashCode()) % INITIAL_SIZE;
         }
         
         else if(target instanceof User) {
             //Set hash to (target.hashCode mod INITIAL_SIZE)
-            hash = target.hashCode() % INITIAL_SIZE;
+            hash = Math.abs(target.hashCode()) % INITIAL_SIZE;
         }
 
         return hash;
     }
 
-    
+    /**
+     * Checks if given key is already present in given HashMap slot.
+     * @param slot Given HashMap slot
+     * @param key Given key
+     * @return False if key is not present in slot list, true otherwise.
+     */
+    private boolean isKeyPresent(int slot, String key) {
+        //Initialise for loop 
+        for (int i = 0; i < slotLists[slot].size(); i++) {
+            //Check Entry key is same as given key
+            if (slotLists[slot].get(i).getKey().equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
 
 

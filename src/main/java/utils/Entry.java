@@ -40,18 +40,18 @@ import business.User;
         }
 
         /**
-         * Updates the slot's User password value with given new value.
+         * Updates the slot's User object with given new value.
          * @param newValue Given new value
          */
-        public String updateValue(String newValue) {
+        public User updateValue(User newValue) {
             //Validation
             if(newValue == null) {
                 throw new NullPointerException("Given new value is null! Please give a non-null User object as value");
             }
 
-            String oldValue = this.value.getPassword();
+            User oldValue = this.value;
 
-            this.value.setPassword(newValue);
+            this.value = newValue;
 
             return oldValue;
         }
