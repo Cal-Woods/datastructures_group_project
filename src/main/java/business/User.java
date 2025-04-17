@@ -78,6 +78,8 @@ public class User {
      * Validates given password.
      * 
      * @param password Given password
+     * 
+     * @throws IllegalArgumentException If password length is less than 8 characters
      */
     private static void validPassword(String password) {
         //Validation
@@ -133,7 +135,7 @@ public class User {
 
         //Declare User object
         User user = ((User)obj);
-        
+
         //Check if username attributes are equal
         if((user).getUsername().equals(this.username)) {
             return true;
