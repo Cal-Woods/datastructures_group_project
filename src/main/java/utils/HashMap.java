@@ -40,22 +40,28 @@ public class HashMap {
             slotLists[calculated] = new LinkedList();
         }
 
-        //Validate key is NOT already present in slot list
-        if(isKeyPresent(calculated, user.getUsername())) {
-            System.err.println("Incoming key value is already present in slot list of HashMap instance.");
+        //TODO: Validate key is NOT already present in slot list
+        // if(isKeyPresent(calculated, user.getUsername())) {
+        //     System.err.println("Incoming key value is already present in slot list of HashMap instance.");
 
-            return null; 
-        }
+        //     return null; 
+        // }
 
         //Add Entry objects to slotLists at calculated
         //TODO: Fix LinkedList to hold Entry objects.
-        //slotLists[calculated].add(new Entry(user.getUsername(), user));
+        slotLists[calculated].add(new Entry(user.getUsername(), user));
 
         return user;
     }
 
-
-    //public 
+    /**
+     * Gets the current count of elements in HashMap instance.
+     * 
+     * @return The count of elements
+     */
+    public int getCount() {
+        return count;
+    }
 
     /**
      * Calculates a number corresponding to a slot in the HashMap instance.
