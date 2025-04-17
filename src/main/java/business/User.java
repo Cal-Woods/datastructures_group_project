@@ -125,13 +125,15 @@ public class User {
         if(obj == null) {
             throw new NullPointerException("Given obj is null which is NOT allowed!");
         }
-        //Declare User object
-        User user = null;
+        
         //Check if given obj is instance of User
-        if(obj instanceof User) {
-            user = ((User)obj);
+        if(!(obj instanceof User)) {
+            return false;
         }
 
+        //Declare User object
+        User user = ((User)obj);
+        
         //Check if username attributes are equal
         if((user).getUsername().equals(this.username)) {
             return true;
