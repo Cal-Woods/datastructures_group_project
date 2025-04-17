@@ -6,7 +6,7 @@ import utils.Entry;
 /**
  * A dynamic ArrayList to hold Entry objects
  */
-public class dynamicArray {
+public class DynamicArray {
     private int numElements;
     private Entry[] array;
     
@@ -16,7 +16,7 @@ public class dynamicArray {
     /**
      *Initialises a dynamicArray instance with 0 numElements & an Entry array of size STARTING_SIZE == 10
      */
-    public dynamicArray() {
+    public DynamicArray() {
         this.numElements = 0;
         this.array = new Entry[STARTING_SIZE];
     }
