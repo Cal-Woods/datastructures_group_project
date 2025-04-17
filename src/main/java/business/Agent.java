@@ -32,4 +32,11 @@ public class Agent extends User {
         this.agentID = agentID;
     }
 
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
 }
