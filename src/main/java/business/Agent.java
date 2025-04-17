@@ -24,4 +24,12 @@ public class Agent extends User {
         this.closedTickets = new LinkedList();
     }
 
+    public int getAgentID() {
+        return agentID;
+    }
+
+    public void setAgentID(int agentID) {
+        this.agentID = agentID;
+    }
+
 }
