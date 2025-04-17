@@ -1,12 +1,12 @@
 package business;
 
-import java.util.LinkedList;
+import utils.LinkedList;
 
 public class Agent extends User {
     int agentID;
     String agentName;
     //data s for
-    private LinkedList<Ticket> openTickets;
-    private LinkedList<Ticket> closedTickets;
+    private LinkedList openTickets;
+    private LinkedList closedTickets;
 
 }
