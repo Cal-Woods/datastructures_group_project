@@ -14,14 +14,14 @@ public class HashMap {
 
     //Instance attributes
     private int count;
-    private LinkedList[] slotLists;
+    private dynamicArray[] slotLists;
 
     //Constructors
     /**
     * A no-argument constructor that initialises instance to default empty HashMap.
     */
     public HashMap() {
-        this.slotLists = new LinkedList[INITIAL_SIZE];
+        this.slotLists = new dynamicArray[INITIAL_SIZE];
         this.count = 0;
     }
 
@@ -37,7 +37,7 @@ public class HashMap {
         //Check if calculated slot is empty
         if(slotLists[calculated] == null) {
             //Initialise slot
-            slotLists[calculated] = new LinkedList();
+            slotLists[calculated] = new dynamicArray();
         }
 
         //TODO: Validate key is NOT already present in slot list
