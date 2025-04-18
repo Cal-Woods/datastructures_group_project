@@ -88,7 +88,12 @@ public class DynamicArray {
         return -1;
     }
 
-
+    /**
+     * Adds a given User to the end of the list.
+     * @param user Given User
+     * 
+     * @throws NullPointerException If given User is null
+     */
     public void add(User user) {
         //Validation
         if(user == null) {
@@ -96,9 +101,10 @@ public class DynamicArray {
         }
 
         //If list numElements equals array.length
-        if(this.numElements == array.length) {
-            //TODO: grow()
+        if(this.numElements == this.array.length) {
+            grow();
         }
+
         //Add to end of list
         this.array[this.numElements] = new Entry(user.getUsername(), user);
     }
