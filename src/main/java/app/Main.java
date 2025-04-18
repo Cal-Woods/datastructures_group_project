@@ -6,16 +6,23 @@ import java.io.IOException;
 import utils.HashMap;
 import java.util.Scanner;
 import business.User;
-import utils.*;
 
 public class Main {
     //Class variables
     private static final String USER_STORE_DIR = "persistent-data";
     private static final String USER_STORE_FILE = USER_STORE_DIR+"/Users";
+    
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
 
         System.out.println(users.getCount());
+
+        
+        
+        System.out.println(users.get("Cdogamer7785"));
+        System.out.println(users.get("ReesyFleecy77"));
+        System.out.println(users.get("NadbF"));
+
 }
 
 
@@ -49,12 +56,14 @@ public class Main {
         
         //Set-up  Scanner  and set delimiter
         Scanner readUsers = new Scanner(usersFile);
-        readUsers.useDelimiter(":");
+        readUsers.useDelimiter(":|\n");
 
         //Initialise while loop to iterate until there are no more tokens in Scanner
         while(readUsers.hasNext()) {
-            temp.put(new User(readUsers.next(), readUsers.next()));
-            readUsers.nextLine();
+            String username = readUsers.next();
+            String secret = readUsers.next();
+
+            temp.put(new User(username, secret));
         }
 
 
