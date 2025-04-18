@@ -61,6 +61,34 @@ public class HashMap {
         return user;
     }
 
+    public User get(String key) {
+        //Validation
+        if(key == null) {
+            throw new NullPointerException("Given key was null!");
+        }
+        if(key.isBlank()) {
+            throw new IllegalArgumentException("Given key was "+key+" which is blank and NOT allowed!");
+        }
+
+        //Declare int index set to calcSlot() method
+        int index = this.calcSlot(new User(key, "Does_not_matter"));
+
+        //Check if slotLists[index] is null
+        if(this.slotLists[index] == null) {
+            return null;
+        }
+
+        //Initialise for loop to iterate through this.slotLists to find matching key
+        for (int i = 0; i < this.slotLists[index].size(); i++) {
+            //Check if given key matches Entry key
+            if(key.equalsIgnoreCase(this.slotLists[index].get(i).getKey())) {
+                return this.slotLists[index].get(i).getValue();
+            }
+        }
+
+
+        return null;
+    }
     /**
      * Gets the current count of elements in HashMap instance.
      * 
