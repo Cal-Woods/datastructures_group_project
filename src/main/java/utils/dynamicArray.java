@@ -87,4 +87,19 @@ public class DynamicArray {
 
         return -1;
     }
+
+
+    public void add(User user) {
+        //Validation
+        if(user == null) {
+            throw new NullPointerException("Given User to add was null!");
+        }
+
+        //If list numElements equals array.length
+        if(this.numElements == array.length) {
+            //TODO: grow()
+        }
+        //Add to end of list
+        this.array[this.numElements] = new Entry(user.getUsername(), user);
+    }
 }
