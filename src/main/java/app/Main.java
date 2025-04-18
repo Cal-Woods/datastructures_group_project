@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import utils.HashMap;
 import java.util.Scanner;
-
 import business.User;
+import utils.*;
 
 public class Main {
     //Class variables
@@ -15,15 +15,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
 
-        for (int i = 0; i < 1; i++) {
-            
-        }
+        System.out.println(users.getCount());
 }
 
 
     private static HashMap initUsersMap(String fileDir, String fileName) throws FileNotFoundException, IOException {
         //Validation
-        
+        if(fileDir == null) {
+            throw new NullPointerException("Given fileDir was null! Program has must be restarteed!");
+        }
+        if(fileName == null) {
+            throw new NullPointerException("Given fileName was null! Program must be restarted!");
+        }
 
         //Declare HashMap temp as future return type
         HashMap temp = new HashMap();
