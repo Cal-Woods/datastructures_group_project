@@ -45,7 +45,7 @@ public class DynamicArray {
      * 
      * @return An Entry object
      */
-    public User get(int pos) {
+    public Entry get(int pos) {
         //Validation
         if(pos < 0) {
             throw new IndexOutOfBoundsException("Given pos was "+pos+" which is an invalid place in a list, positive numbers only!");
@@ -54,7 +54,7 @@ public class DynamicArray {
             throw new IndexOutOfBoundsException("Given pos was "+pos+" but there is ONLY "+this.numElements+" elements in this list!");
         }
 
-        return this.array[pos].getValue();
+        return this.array[pos];
     }
 
     /**
