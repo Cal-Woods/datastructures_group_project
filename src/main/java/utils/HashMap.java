@@ -47,11 +47,10 @@ public class HashMap {
         //     return null; 
         // }
 
-        //Add Entry objects to slotLists at calculated
-        //TODO: Fix LinkedList to hold Entry objects.
-        slotLists[calculated].add(new Entry(user.getUsername(), user));
+        //Add Entry objects to slotLists at calculated index
+        slotLists[calculated].add(user);
 
-        count++;
+        this.count++;
         return user;
     }
 
@@ -101,13 +100,11 @@ public class HashMap {
         //Initialise for loop 
         for (int i = 0; i < slotLists[slot].size(); i++) {
             //Check Entry key is same as given key
-            if (slotLists[slot].get(i).getKey().equalsIgnoreCase(key)) {
+            if (key.equalsIgnoreCase(slotLists[slot].get(i).getKey())) {
                 return true;
             }
         }
-        
+
         return false;
     }
 }
-
-
