@@ -25,6 +25,13 @@ public class HashMap {
         this.count = 0;
     }
 
+    /**
+     * Puts a given User entry into HashMap instance if the key is unique.
+     * @param user Given User
+     * @return Added User object
+     * 
+     * @throws NullPointerException If given User is null
+     */
     public User put(User user) {
         //Validation
         if(user == null) {
