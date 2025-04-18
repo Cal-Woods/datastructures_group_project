@@ -102,7 +102,7 @@ public class DynamicArray {
 
         //If list numElements equals array.length
         if(this.numElements == this.array.length) {
-            grow();
+            this.array = grow();
         }
 
         //Add to end of list
@@ -124,5 +124,25 @@ public class DynamicArray {
 
         //Return temp
         return temp;
+    }
+
+    /**
+     * Checks if a given position is valid in the DynamicArray instance.
+     * 
+     * @param pos Given position
+     * 
+     * @return true if given position is valid.
+     * 
+     * @throws IndexOutOfBoundsException If given position is < 0 or given position >= number of elements in list
+     */
+    private boolean validPos(int pos) {
+        if(pos < 0) {
+            throw new IndexOutOfBoundsException("Given pos was "+pos+" which is an invalid position in a list or array!");
+        }
+        if(pos >= this.numElements) {
+            throw new IndexOutOfBoundsException("Given pos was "+pos+" which is greater than the size of this list!");
+        }
+
+        return true;
     }
 }
