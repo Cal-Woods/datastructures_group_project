@@ -28,7 +28,7 @@ public class HashMap {
     /**
      * Puts a given User entry into HashMap instance if the key is unique.
      * @param user Given User
-     * @return Added User object
+     * @return Added User object or null if key is already present in HashMap.
      * 
      * @throws NullPointerException If given User is null
      */
@@ -48,11 +48,11 @@ public class HashMap {
         }
 
         //TODO: Validate key is NOT already present in slot list
-        // if(isKeyPresent(calculated, user.getUsername())) {
-        //     System.err.println("Incoming key value is already present in slot list of HashMap instance.");
+        if(isKeyPresent(calculated, user.getUsername())) {
+            System.err.println("Incoming key value is already present in slot list of HashMap instance.");
 
-        //     return null; 
-        // }
+            return null; 
+        }
 
         //Add Entry objects to slotLists at calculated index
         slotLists[calculated].add(user);
