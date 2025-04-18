@@ -107,8 +107,21 @@ public class DynamicArray {
 
         //Add to end of list
         this.array[this.numElements] = new Entry(user.getUsername(), user);
+
+        //Increment count by 1
+        this.numElements++;
     }
 
+
+    public User remove(int pos) {
+        //Validation
+        validPos(pos);
+
+        //Shift delete element at given pos
+        //TODO: shiftDelete(pos);
+
+        return null;
+    }
 
     //Private helper methods
     /**
