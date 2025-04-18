@@ -14,15 +14,7 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
-
-        System.out.println(users.getCount());
-
-        
-        
-        System.out.println(users.get("Cdogamer7785"));
-        System.out.println(users.get("ReesyFleecy77"));
-        System.out.println(users.get("NadbF"));
-
+        //TODO - Collins, Jerome: Add data structures for storing open tickets, closed tickets: PriorityQueue, LinkedList
 }
 
 
