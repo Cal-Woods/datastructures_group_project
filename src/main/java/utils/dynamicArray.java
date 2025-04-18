@@ -102,4 +102,21 @@ public class DynamicArray {
         //Add to end of list
         this.array[this.numElements] = new Entry(user.getUsername(), user);
     }
+
+
+    //Private helper methods
+    /**
+     * Grows the DynamicArray instance array by 10
+     * @return temp grown array
+     */
+    private Entry[] grow() {
+        //Declare temp Entry array
+        Entry[] temp = new Entry[this.numElements + STARTING_SIZE];
+
+        //Copy all Entry objects from this.array to temp
+        System.arraycopy(this.array, 0, temp, 0, this.numElements);
+
+        //Return temp
+        return temp;
+    }
 }
