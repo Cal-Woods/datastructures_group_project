@@ -94,10 +94,10 @@ public class DynamicArray {
      * 
      * @throws NullPointerException If given User is null
      */
-    public void add(User user) {
+    public void add(Entry entry) {
         //Validation
-        if(user == null) {
-            throw new NullPointerException("Given User to add was null!");
+        if(entry == null) {
+            throw new NullPointerException("Given Entry to add was null!");
         }
 
         //If list numElements equals array.length
@@ -106,7 +106,7 @@ public class DynamicArray {
         }
 
         //Add to end of list
-        this.array[this.numElements] = new Entry(user.getUsername(), user);
+        this.array[this.numElements] = entry;
 
         //Increment count by 1
         this.numElements++;
@@ -119,6 +119,8 @@ public class DynamicArray {
 
         //Shift delete element at given pos
         //TODO: shiftDelete(pos);
+
+        this.numElements--;
 
         return null;
     }

@@ -43,7 +43,7 @@ public class HashMap {
         if(key.isBlank()) {
             throw new IllegalArgumentException("Given key was "+key+" which is empty or full of whitespace, NOT allowed!");
         }
-        
+
         //Declare int calculated to store calculated slot
         int calculated = hashFunction(key);
 
@@ -61,7 +61,7 @@ public class HashMap {
         }
 
         //Add Entry objects to slotLists at calculated index
-        slotLists[calculated].add(value);
+        slotLists[calculated].add(new Entry(key, value));
 
         this.count++;
         return value;
