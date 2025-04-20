@@ -58,17 +58,17 @@ public class DynamicArray {
     }
 
     /**
-     * Searches a dynamicArray instance for a given User object and gives the index of that object.
+     * Searches a dynamicArray instance for a given Entry object and gives the index of that object.
      * 
-     * @param user Given User
+     * @param entry Given Entry object
      * 
-     * @return The index of the User if found, -1 if the User was NOT found or if dynamicArray instance is empty
+     * @return The index of the Entry if found, -1 if the Entry was NOT found or if dynamicArray instance is empty
      * 
      * @throws NullPointerException If given User object was null
      */
-    public int indexOf(User user) {
+    public int indexOf(Entry entry) {
         //Validation
-        if(user == null) {
+        if(entry == null) {
             throw new NullPointerException("Given User object was null!");
         }
         if(this.isEmpty()) {
@@ -80,7 +80,7 @@ public class DynamicArray {
         //Initialise for loop to iterate until number of elements
         for (int i = 0; i <  this.numElements; i++) {
             //Check the incoming User for every User in array
-            if(user.equals(this.array[i].getValue())) {
+            if(entry.equals(this.array[i])) {
                 return i;
             }
         }
@@ -113,16 +113,20 @@ public class DynamicArray {
     }
 
 
-    public User remove(int pos) {
+    public Entry remove(int pos) {
         //Validation
         validPos(pos);
 
+        if(pos == this.numElements-1) {
+            this.array[this.numElements-1] = null;
+        }
+
         //Shift delete element at given pos
-        //TODO: shiftDelete(pos);
+        Entry entry = shiftDelete(pos);
 
         this.numElements--;
 
-        return null;
+        return entry;
     }
 
     //Private helper methods
@@ -159,5 +163,30 @@ public class DynamicArray {
         }
 
         return true;
+    }
+
+    /**
+     * Uses the shift deletion method on a given position.
+     * @param pos Given position
+     * @return Deleted Entry object
+     * @see Usage Do NOT use if given position is at the end of the DynamicArray
+     */
+    private Entry shiftDelete(int pos) {
+        //Validation
+        validPos(pos);
+
+        //Declare Entry entry to store old Entry
+        Entry entry = this.array[pos];
+
+        //Initialise for loop
+        for (int i = pos+1; i < this.numElements; i++) {
+            this.array[i-1] = this.array[i];
+        }
+
+        //Set this.numElements - 1 = null
+        this.array[this.numElements-1] = null;
+
+        return entry;
+
     }
 }
