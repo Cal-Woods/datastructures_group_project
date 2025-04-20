@@ -17,7 +17,16 @@ public class Main {
         //TODO - Collins, Jerome: Add data structures for storing open tickets, closed tickets: PriorityQueue, LinkedList
 }
 
-
+    /**
+     * Initialises application HashMap by reading a file from a given directory path & a file name.
+     * @param fileDir Given directory path
+     * @param fileName Given file name:Must be full path
+     * @return A HashMap filled with Users if file found & not empty, otherwise a blank HashMap
+     * @throws FileNotFoundException If trying to access a file that doesn't exist
+     * @throws IOException If caller does NOT have appropriate permissions to create files
+     * 
+     * @author Cal Woods
+     */
     private static HashMap initUsersMap(String fileDir, String fileName) throws FileNotFoundException, IOException {
         //Validation
         if(fileDir == null) {
@@ -58,6 +67,7 @@ public class Main {
             temp.put(new User(username, secret));
         }
 
+        readUsers.close();
 
         return temp;
     }
