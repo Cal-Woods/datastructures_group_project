@@ -36,10 +36,10 @@ public class Main {
             throw new NullPointerException("Given fileName was null! Program must be restarted!");
         }
         if(fileDir.isBlank()) {
-            throw new IllegalArgumentException("Given directory path must NOT be empty!")
+            throw new IllegalArgumentException("Given directory path must NOT be empty!");
         }
         if(fileDir.isBlank()) {
-            throw new IllegalArgumentException("Given file name must NOT be empty!")
+            throw new IllegalArgumentException("Given file name must NOT be empty!");
         }
 
         //Declare HashMap temp as future return type
