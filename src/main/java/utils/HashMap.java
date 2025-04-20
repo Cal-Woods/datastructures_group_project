@@ -105,22 +105,16 @@ public class HashMap {
      * 
      * @return number of a slot in HashMap instance
      */
-    private int calcSlot(User target) {
+    private int hashFunction(String key) {
+        final int PRIME = 17;
+
         //Declare an int hash equal to -1
         int hash = -1;
 
-        //Check User or Agent
-        if(target instanceof Agent) {
-            //Set hash to (target.hashCode mod INITIAL_SIZE)
-            Agent agent = ((Agent)target);
+        //Call key hashCode() method
+        hash = key.hashCode() + PRIME;
 
-            hash = Math.abs(agent.hashCode()) % INITIAL_SIZE;
-        }
-        
-        else if(target instanceof User) {
-            //Set hash to (target.hashCode mod INITIAL_SIZE)
-            hash = Math.abs(target.hashCode()) % INITIAL_SIZE;
-        }
+        hash *= PRIME;
 
         return hash;
     }
