@@ -55,4 +55,51 @@ import business.User;
 
             return oldValue;
         }
+
+        /**
+         * Checks if two Entry keys are equal
+         * @param o The object to compare, must be Entry
+         */
+        @Override
+        public boolean equals(Object o) {
+            //Validation
+            if(o == null) {
+                throw new NullPointerException("Given Object was null!");
+            }
+            if(!(o instanceof Entry)) {
+                throw new IllegalArgumentException("Given Object was NOT an Entry object, the given object must be Entry");
+            }
+
+            //Store an Entry from given Object
+            Entry entry = ((Entry)o);
+
+            //Check if two Entry objects are identical
+            if(entry.key.equals(this.key)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
+         * Converts Entry object's key into a String hashCode in accordance with equals().
+         */
+        @Override
+        public int hashCode() {
+            final int PRIME = 17;
+
+            int hash = PRIME;
+
+            hash += this.key.hashCode();
+
+            hash *= PRIME;
+
+            return hash;
+        }
+
+
+        @Override
+        public String toString() {
+            return "Key: "+this.key+"\nValue: "+this.value+"\n";
+        }
     }
