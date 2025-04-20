@@ -19,8 +19,8 @@ public class Main {
 
     /**
      * Initialises application HashMap by reading a file from a given directory path & a file name.
-     * @param fileDir Given directory path
-     * @param fileName Given file name:Must be full path
+     * @param fileDir Given directory path, can NOT be empty or null
+     * @param fileName Given file name:Must be full path, can NOT be empty or null
      * @return A HashMap filled with Users if file found & not empty, otherwise a blank HashMap
      * @throws FileNotFoundException If trying to access a file that doesn't exist
      * @throws IOException If caller does NOT have appropriate permissions to create files
@@ -34,6 +34,12 @@ public class Main {
         }
         if(fileName == null) {
             throw new NullPointerException("Given fileName was null! Program must be restarted!");
+        }
+        if(fileDir.isBlank()) {
+            throw new IllegalArgumentException("Given directory path must NOT be empty!")
+        }
+        if(fileDir.isBlank()) {
+            throw new IllegalArgumentException("Given file name must NOT be empty!")
         }
 
         //Declare HashMap temp as future return type
