@@ -1,6 +1,5 @@
 package utils;
 
-import business.Agent;
 import business.User;
 
 /**
@@ -53,7 +52,6 @@ public class HashMap {
             slotLists[calculated] = new DynamicArray();
         }
 
-        //TODO: Validate key is NOT already present in slot list
         if(containsKey(key)) {
             System.err.println("Incoming key value is already present in slot list of HashMap instance.");
 
@@ -87,7 +85,7 @@ public class HashMap {
         //Initialise for loop to iterate through this.slotLists to find matching key
         for (int i = 0; i < this.slotLists[index].size(); i++) {
             //Check if given key matches Entry key
-            if(key.equalsIgnoreCase(this.slotLists[index].get(i).getKey())) {
+            if(key.equals(this.slotLists[index].get(i).getKey())) {
                 return this.slotLists[index].get(i).getValue();
             }
         }
@@ -115,12 +113,15 @@ public class HashMap {
         final int PRIME = 17;
 
         //Declare an int hash equal to -1
-        int hash = -1;
+        int hash = PRIME;
 
         //Call key hashCode() method
-        hash = key.hashCode() + PRIME;
+        hash += Math.abs(key.hashCode());
 
         hash *= PRIME;
+
+        //MOD hash by INITIAL_SIZE
+        hash = Math.abs(hash % INITIAL_SIZE);
 
         return hash;
     }
