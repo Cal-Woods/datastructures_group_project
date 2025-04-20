@@ -27,19 +27,25 @@ public class HashMap {
 
     /**
      * Puts a given User entry into HashMap instance if the key is unique.
-     * @param user Given User
+     * @param value Given User
      * @return Added User object or null if key is already present in HashMap.
      * 
      * @throws NullPointerException If given User is null
      */
-    public User put(User user) {
+    public User put(String key, User value) {
         //Validation
-        if(user == null) {
+        if(value == null) {
             throw new NullPointerException("Given User object is null which is NOT allowed!");
+        }
+        if(key == null) {
+            throw new NullPointerException("Given key was null which bis NOT allowed!");
+        }
+        if(key.isBlank()) {
+            throw new IllegalArgumentException("Given key was "+key+" which is empty or full of whitespace, NOT allowed!");
         }
         
         //Declare int calculated to store calculated slot
-        int calculated = calcSlot(user);
+        int calculated = hashFunction(key);
 
         //Check if calculated slot is empty
         if(slotLists[calculated] == null) {
@@ -48,17 +54,17 @@ public class HashMap {
         }
 
         //TODO: Validate key is NOT already present in slot list
-        if(isKeyPresent(calculated, user.getUsername())) {
+        if(containsKey(key)) {
             System.err.println("Incoming key value is already present in slot list of HashMap instance.");
 
             return null; 
         }
 
         //Add Entry objects to slotLists at calculated index
-        slotLists[calculated].add(user);
+        slotLists[calculated].add(value);
 
         this.count++;
-        return user;
+        return value;
     }
 
     public User get(String key) {
@@ -71,7 +77,7 @@ public class HashMap {
         }
 
         //Declare int index set to calcSlot() method
-        int index = this.calcSlot(new User(key, "Does_not_matter"));
+        int index = this.hashFunction(key);
 
         //Check if slotLists[index] is null
         if(this.slotLists[index] == null) {
@@ -125,7 +131,10 @@ public class HashMap {
      * @param key Given key
      * @return False if key is not present in slot list, true otherwise.
      */
-    private boolean isKeyPresent(int slot, String key) {
+    private boolean containsKey(String key) {
+        //Declare int slot to store hashFunction(key)
+        int slot = hashFunction(key);
+
         //Initialise for loop 
         for (int i = 0; i < slotLists[slot].size(); i++) {
             //Check Entry key is same as given key
