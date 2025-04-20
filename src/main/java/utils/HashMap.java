@@ -102,6 +102,30 @@ public class HashMap {
         return count;
     }
 
+    public User remove(String key) {
+        if(key == null) {
+            throw new NullPointerException("Given key was null!");
+        }
+        if(key.isBlank()) {
+            throw new IllegalArgumentException("Given key was ["+key+"], which is either empty or full of whitespace!");
+        }
+
+        //Store key hash
+        int hash = hashFunction(key);
+
+        //Store index of DynamicArray slot
+        int index = this.slotLists[hash].indexOf(new Entry(key, new User(key, key)));
+
+        Entry entry = this.slotLists[hash].get(index);
+
+        //Call DynamicArray remove()
+        this.slotLists[hash].remove(index);
+
+        //Decrement count by 1
+        this.count--;
+
+        return entry.getValue();
+    }
     /**
      * Calculates a number corresponding to a slot in the HashMap instance.
      * 
