@@ -119,7 +119,7 @@ public class HashMap {
         Entry entry = this.slotLists[hash].get(index);
 
         //Call DynamicArray remove()
-        this.slotLists[hash].remove(index);
+        this.slotLists[hash].remove(entry);
 
         //Decrement count by 1
         this.count--;
@@ -169,5 +169,69 @@ public class HashMap {
         }
 
         return false;
+    }
+
+    /**
+     * Gets all keys in HashMap instance.
+     * @return A String[] with all keys
+     */
+    public String[] getKeys() {
+        //Validation
+        if (this.count == 0) {
+            return null;
+        }
+
+        //Declare String[] keys
+        String[] keys = new String[this.count];
+
+        //Declare int keyCount
+        int keyCount = 0;
+
+        //Initialise for loop to go through each slot in HashMap instance
+        for (int i = 0; i < INITIAL_SIZE; i++) {
+            if(this.slotLists[i] == null) {
+                continue;
+            }
+
+            //Nested for loop to linear search for each key
+            for (int j = 0; j < slotLists[i].size(); j++) {
+                //Insert key value into keys
+                keys[keyCount++] = this.slotLists[i].get(j).getKey();
+            }
+        }
+        
+        return keys;
+    }
+
+    /**
+     * Gets all User objects in HashMap instance
+     * @return 
+     */
+    public User[] getValues() {
+        //Validation
+        if (this.count == 0) {
+            return null;
+        }
+
+        //Declare User[] values
+        User[] values = new User[this.count];
+
+        //Declare int keyCount
+        int valueCount = 0;
+
+        //Initialise for loop to go through each slot in HashMap instance
+        for (int i = 0; i < INITIAL_SIZE; i++) {
+            if(this.slotLists[i] == null) {
+                continue;
+            }
+            
+            //Nested for loop to linear search for each key
+            for (int j = 0; j < slotLists[i].size(); j++) {
+                //Insert key value into keys
+                values[valueCount++] = this.slotLists[i].get(j).getValue();
+            }
+        }
+        
+        return values;
     }
 }
