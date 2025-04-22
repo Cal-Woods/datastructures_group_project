@@ -1,5 +1,5 @@
 package utils;
-/**This is a dynamic arraylist that holds entry to objects**/
+   /**This is a dynamic arraylist that holds entry to objects**/
 /**It initializes a DynamicArray instance with 0 numElements $ an Entry array of size STARTING_ SIZE==10**/
 public class DynamicArray {
     private static final int STARTING_SIZE = 10;
@@ -78,7 +78,7 @@ public class DynamicArray {
     }
 
     /**
-     * removing entry from a list
+     * removing Entry from a list
      *
      * @param entry the index of the item to remove from the list
      *              return removed item from the list
