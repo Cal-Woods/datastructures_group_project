@@ -30,7 +30,7 @@ public class Main {
     private static HashMap initUsersMap(String fileDir, String fileName) throws FileNotFoundException, IOException {
         //Validation
         if(fileDir == null) {
-            throw new NullPointerException("Given fileDir was null! Program has must be restarteed!");
+            throw new NullPointerException("Given fileDir was null! Program has must be restarted!");
         }
         if(fileName == null) {
             throw new NullPointerException("Given fileName was null! Program must be restarted!");
@@ -70,7 +70,7 @@ public class Main {
             String username = readUsers.next();
             String secret = readUsers.next();
 
-            temp.put(new User(username, secret));
+            temp.put(username, new User(username, secret));
         }
 
         readUsers.close();

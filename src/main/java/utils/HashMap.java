@@ -1,6 +1,5 @@
 package utils;
 
-import business.Agent;
 import business.User;
 
 /**
@@ -27,19 +26,25 @@ public class HashMap {
 
     /**
      * Puts a given User entry into HashMap instance if the key is unique.
-     * @param user Given User
+     * @param value Given User
      * @return Added User object or null if key is already present in HashMap.
      * 
      * @throws NullPointerException If given User is null
      */
-    public User put(User user) {
+    public User put(String key, User value) {
         //Validation
-        if(user == null) {
+        if(value == null) {
             throw new NullPointerException("Given User object is null which is NOT allowed!");
         }
-        
+        if(key == null) {
+            throw new NullPointerException("Given key was null which bis NOT allowed!");
+        }
+        if(key.isBlank()) {
+            throw new IllegalArgumentException("Given key was "+key+" which is empty or full of whitespace, NOT allowed!");
+        }
+
         //Declare int calculated to store calculated slot
-        int calculated = calcSlot(user);
+        int calculated = hashFunction(key);
 
         //Check if calculated slot is empty
         if(slotLists[calculated] == null) {
@@ -47,18 +52,17 @@ public class HashMap {
             slotLists[calculated] = new DynamicArray();
         }
 
-        //TODO: Validate key is NOT already present in slot list
-        if(isKeyPresent(calculated, user.getUsername())) {
+        if(containsKey(key)) {
             System.err.println("Incoming key value is already present in slot list of HashMap instance.");
 
             return null; 
         }
 
         //Add Entry objects to slotLists at calculated index
-        slotLists[calculated].add(user);
+        slotLists[calculated].add(new Entry(key, value));
 
         this.count++;
-        return user;
+        return value;
     }
 
     public User get(String key) {
@@ -71,7 +75,7 @@ public class HashMap {
         }
 
         //Declare int index set to calcSlot() method
-        int index = this.calcSlot(new User(key, "Does_not_matter"));
+        int index = this.hashFunction(key);
 
         //Check if slotLists[index] is null
         if(this.slotLists[index] == null) {
@@ -81,7 +85,7 @@ public class HashMap {
         //Initialise for loop to iterate through this.slotLists to find matching key
         for (int i = 0; i < this.slotLists[index].size(); i++) {
             //Check if given key matches Entry key
-            if(key.equalsIgnoreCase(this.slotLists[index].get(i).getKey())) {
+            if(key.equals(this.slotLists[index].get(i).getKey())) {
                 return this.slotLists[index].get(i).getValue();
             }
         }
@@ -98,6 +102,30 @@ public class HashMap {
         return count;
     }
 
+    public User remove(String key) {
+        if(key == null) {
+            throw new NullPointerException("Given key was null!");
+        }
+        if(key.isBlank()) {
+            throw new IllegalArgumentException("Given key was ["+key+"], which is either empty or full of whitespace!");
+        }
+
+        //Store key hash
+        int hash = hashFunction(key);
+
+        //Store index of DynamicArray slot
+        int index = this.slotLists[hash].indexOf(new Entry(key, new User(key, key)));
+
+        Entry entry = this.slotLists[hash].get(index);
+
+        //Call DynamicArray remove()
+        this.slotLists[hash].remove(entry);
+
+        //Decrement count by 1
+        this.count--;
+
+        return entry.getValue();
+    }
     /**
      * Calculates a number corresponding to a slot in the HashMap instance.
      * 
@@ -109,12 +137,15 @@ public class HashMap {
         final int PRIME = 17;
 
         //Declare an int hash equal to -1
-        int hash = -1;
+        int hash = PRIME;
 
         //Call key hashCode() method
-        hash = key.hashCode() + PRIME;
+        hash += Math.abs(key.hashCode());
 
         hash *= PRIME;
+
+        //MOD hash by INITIAL_SIZE
+        hash = Math.abs(hash % INITIAL_SIZE);
 
         return hash;
     }
@@ -125,7 +156,10 @@ public class HashMap {
      * @param key Given key
      * @return False if key is not present in slot list, true otherwise.
      */
-    private boolean isKeyPresent(int slot, String key) {
+    private boolean containsKey(String key) {
+        //Declare int slot to store hashFunction(key)
+        int slot = hashFunction(key);
+
         //Initialise for loop 
         for (int i = 0; i < slotLists[slot].size(); i++) {
             //Check Entry key is same as given key
@@ -135,5 +169,69 @@ public class HashMap {
         }
 
         return false;
+    }
+
+    /**
+     * Gets all keys in HashMap instance.
+     * @return A String[] with all keys
+     */
+    public String[] getKeys() {
+        //Validation
+        if (this.count == 0) {
+            return null;
+        }
+
+        //Declare String[] keys
+        String[] keys = new String[this.count];
+
+        //Declare int keyCount
+        int keyCount = 0;
+
+        //Initialise for loop to go through each slot in HashMap instance
+        for (int i = 0; i < INITIAL_SIZE; i++) {
+            if(this.slotLists[i] == null) {
+                continue;
+            }
+
+            //Nested for loop to linear search for each key
+            for (int j = 0; j < slotLists[i].size(); j++) {
+                //Insert key value into keys
+                keys[keyCount++] = this.slotLists[i].get(j).getKey();
+            }
+        }
+        
+        return keys;
+    }
+
+    /**
+     * Gets all User objects in HashMap instance
+     * @return 
+     */
+    public User[] getValues() {
+        //Validation
+        if (this.count == 0) {
+            return null;
+        }
+
+        //Declare User[] values
+        User[] values = new User[this.count];
+
+        //Declare int keyCount
+        int valueCount = 0;
+
+        //Initialise for loop to go through each slot in HashMap instance
+        for (int i = 0; i < INITIAL_SIZE; i++) {
+            if(this.slotLists[i] == null) {
+                continue;
+            }
+            
+            //Nested for loop to linear search for each key
+            for (int j = 0; j < slotLists[i].size(); j++) {
+                //Insert key value into keys
+                values[valueCount++] = this.slotLists[i].get(j).getValue();
+            }
+        }
+        
+        return values;
     }
 }
