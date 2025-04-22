@@ -19,10 +19,42 @@ public class Main {
         System.out.println("Welcome to the IT ticket management program! Once logged in, you may submit a ticket to the application, or if you are an Agent, you may manage tickets.\n");
         
         //Print message
-        System.out.println("\nYou must login before you can access this application. Please enter your username & password below.");
+        System.out.println("\nYou must login before you can access this application. Choose to login or register below.");
 
         //Declare user
         User authenticatedUser = null;
+
+        //Declare running boolean
+        boolean running = true;
+
+        //Declare Scanner keyboard
+        Scanner keyboard = new Scanner(System.in);
+
+        //Initialise while loop
+        while (running) {
+            //Print options
+            System.out.println("Please choose an option?");
+
+            System.out.print("1) Login(If no users are registered, you will have to register)\n2) Register\nOption: ");
+
+            //Capture input
+            String option = keyboard.next();
+            
+            //Clear keyboard Scanner
+            keyboard.nextLine();
+
+            //Validate option
+            if(option.equals(1)) {
+                authenticatedUser = loginSys(users);
+            }
+            else if(option.equals(2)) {
+                //TODO: make registration system
+                throw new UnsupportedOperationException("Registration feature coming soon...");
+            }
+            else {
+                running = false;
+            }
+        }
 
         //TODO - Collins, Jerome: Add data structures for storing open tickets, closed tickets: PriorityQueue, LinkedList
 }
@@ -90,7 +122,12 @@ public class Main {
         return temp;
     }
 
-
+    /**
+     * A login form that handles capturing username & password from the user and comparing them to a given HashMap of User objects.
+     * @param users Given HashMap
+     * @return A HashMap of User objects read from a file, or a blank HashMap if users file was empty
+     * @author Cal Woods
+     */
     private static User loginSys(HashMap users) {
         //Validation
         if(users == null) {
