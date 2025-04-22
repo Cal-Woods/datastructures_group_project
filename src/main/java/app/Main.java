@@ -14,6 +14,16 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
+
+        //Start of program
+        System.out.println("Welcome to the IT ticket management program! Once logged in, you may submit a ticket to the application, or if you are an Agent, you may manage tickets.\n");
+        
+        //Print message
+        System.out.println("\nYou must login before you can access this application. Please enter your username & password below.");
+
+        //Declare user
+        User authenticatedUser = null;
+
         //TODO - Collins, Jerome: Add data structures for storing open tickets, closed tickets: PriorityQueue, LinkedList
 }
 
@@ -30,7 +40,7 @@ public class Main {
     private static HashMap initUsersMap(String fileDir, String fileName) throws FileNotFoundException, IOException {
         //Validation
         if(fileDir == null) {
-            throw new NullPointerException("Given fileDir was null! Program has must be restarted!");
+            throw new NullPointerException("Given fileDir was null! Program must be restarted!");
         }
         if(fileName == null) {
             throw new NullPointerException("Given fileName was null! Program must be restarted!");
@@ -63,18 +73,80 @@ public class Main {
         
         //Set-up  Scanner  and set delimiter
         Scanner readUsers = new Scanner(usersFile);
-        readUsers.useDelimiter(":|\n");
+        readUsers.useDelimiter(":");
 
         //Initialise while loop to iterate until there are no more tokens in Scanner
-        while(readUsers.hasNext()) {
+        while(readUsers.hasNextLine()) {
             String username = readUsers.next();
             String secret = readUsers.next();
 
             temp.put(username, new User(username, secret));
+
+            readUsers.nextLine();
         }
 
         readUsers.close();
 
         return temp;
+    }
+
+
+    private static User loginSys(HashMap users) {
+        //Validation
+        if(users == null) {
+            return null;
+        }
+        if(users.getCount() == 0) {
+            System.out.println("\nThere are no registered users. Please register and come back.");
+
+            return null;
+        }
+
+        //Declare scanner with System.in arg
+        Scanner scanner = new Scanner(System.in);
+
+        //Declare incorrect attempts counter
+        int incorrectAttempts = 0;
+
+        while(incorrectAttempts < 3) {
+            //Print prompt
+            System.out.print("\nUsername(Spaces will be ignored): ");
+
+            //Store username as scanner token
+            String username = scanner.next();
+
+            //Clear scanner buffer
+            scanner.nextLine();
+
+            //Repeat for password
+            System.out.print("Password: ");
+
+            String password = scanner.nextLine();
+            
+            //Get matching User object
+            User match = users.get(username);
+
+            //Check if there was a match
+            if(match == null) {
+                System.out.println("\nUsername was not found in the database! Please try again.");
+            }
+
+            //Compare captured username & password to match
+            else {
+                if(password.equals(match.getPassword())) {
+                    return match;
+                }
+                else {
+                    //Increment incorrectAttempts by 1
+                    incorrectAttempts++;
+
+                    System.out.println("\nThe given password was incorrect! Please enter your credentials again...");
+                }
+            }
+        }
+
+        System.out.println("\nThere have been too many incorrect attempts! Please try to login again.");
+
+        return null;
     }
 }
