@@ -35,7 +35,7 @@ public class Main {
             //Print options
             System.out.println("Please choose an option?");
 
-            System.out.print("1) Login(If no users are registered, you will have to register)\n2) Register\nOption: ");
+            System.out.print("1) Login(If no users are registered, you will have to register)\n2) Register\nAny other key to exit\nOption: ");
 
             //Capture input
             String option = keyboard.next();
@@ -44,10 +44,10 @@ public class Main {
             keyboard.nextLine();
 
             //Validate option
-            if(option.equals(1)) {
+            if(option.equals("1")) {
                 authenticatedUser = loginSys(users);
             }
-            else if(option.equals(2)) {
+            else if(option.equals("2")) {
                 //TODO: make registration system
                 throw new UnsupportedOperationException("Registration feature coming soon...");
             }
