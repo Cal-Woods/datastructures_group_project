@@ -1,5 +1,5 @@
 package utils;
-/**This is a dynamic arraylist that holds entry to objects**/
+   /**This is a dynamic arraylist that holds entry to objects**/
 /**It initializes a DynamicArray instance with 0 numElements $ an Entry array of size STARTING_ SIZE==10**/
 public class DynamicArray {
     private static final int STARTING_SIZE = 10;
@@ -8,29 +8,29 @@ public class DynamicArray {
 
     public DynamicArray() {
         this.numElements = 0;
-        this.array = new Entry[STARTING_SIZE];
+        array = new Entry[STARTING_SIZE];
     }
 
     /**
-     * Should get current number of elemnts on the list in the array
+     * should get current number of elemnts on the list in the array
      * should return the number of elemnts on the list
      **/
 
     public int size() {
-        return this.numElements;
+        return numElements;
     }
 
     /**
-     * The method should check the list is empty
-     * The method should return true if the list is empty
+     * the method should check the list is empty
+     * the method should return true if the list is empty
      * if not, the method should return false if the list is not empty
      **/
     public boolean isEmpty() {
-        return this.numElements == 0;
+        return numElements == 0;
     }
 
     /**
-     * Get entry of an object from a specific position
+     * get entry of an object from a specific position
      *
      * @param position specified position
      *                 return the specified position on the list
@@ -38,7 +38,7 @@ public class DynamicArray {
      **/
 
     public Entry get(int position) {
-        if (position < 0 || position >= this.numElements) {
+        if (position < 0 || position >= numElements) {
             throw new IndexOutOfBoundsException();
         }
         return array[position];
@@ -48,16 +48,16 @@ public class DynamicArray {
     /**
      * search through the list for a given object and give the index of the object being searched
      *
-     * @user given user
-     * @return the index of the user if found and if not, -1 if the user was not found or incase the list is empty
+     * @ user given user
+     * @ return the index of the user if found and if not, -1 if the user was not found or incase the list is empty
      **/
 
     public int indexOf(Entry entry) {
         if (entry == null) {
             throw new NullPointerException("entry is null");
         }
-        for (int i = 0; i < this.numElements; i++) {
-            if (array[i].equals(entry)) {
+        for (int i = 0; i <numElements; i++) {
+            if (array[i] == entry) {
                 return i;
             }
         }
@@ -71,14 +71,14 @@ public class DynamicArray {
         if (entry == null) {
             throw new NullPointerException("list is null");
         }
-        if (this.numElements == array.length) {
+        if (numElements == array.length) {
             array = grow();
         }
         array[numElements++] = entry;
     }
 
     /**
-     * removing entry from a list
+     * removing Entry from a list
      *
      * @param entry the index of the item to remove from the list
      *              return removed item from the list
@@ -90,35 +90,14 @@ public class DynamicArray {
             throw new IndexOutOfBoundsException("list is null");
         }
 
-        /*
-        //Another implementation
-        int index = indexOf(entry);
-
-        if(array[index] == null) {
-            throw new NullPointerException("Entry not found!");
-        }
-
-        if(index == numElements-1) {
-            array[index] = null;
-
-            return;
-        }
-
-        //Shift delete algorithm
-        for(int i = index+1; i < numElements; i++) {
-            array[i-1] = array[i];
-        }*/
-
-        for (int i = 0; i < this.numElements - 1; i++) {
+        for (int i = 0; i < numElements - 1; i++) {
             if (array[i] == entry) {
                 array[i] = array[i + 1];
             }
         }
         array[numElements - 1] = null;
 
-        numElements--;
     }
-
     //private helper method
     /** grows the dynamicarray instance array by 10
      * @return temp grown away */
