@@ -1,8 +1,6 @@
 package business;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
-
 
 public class Ticket {
     private int ticketId;
@@ -41,6 +39,7 @@ public class Ticket {
         this.status = "Pending";
     }
 
+    //getters and setters
     public int getTicketId() {
         return ticketId;
     }
