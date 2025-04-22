@@ -96,27 +96,6 @@ public class Ticket {
         this.status = status;
     }
     @Override
-    public int compareTo(Ticket other) {
-        if (this.priority != other.priority) {
-            return Integer.compare(other.priority, this.priority); // Higher priority first
-        }
-        return this.createdAt.compareTo(other.createdAt); // Earlier created first
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Ticket)) return false;
-        Ticket other = (Ticket) obj;
-        return this.ticketId == other.ticketId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ticketId);
-    }
-
-    @Override
     public String toString() {
         return "Ticket ID: " + ticketId +
                 "\nDescription: " + description +
