@@ -2,6 +2,10 @@ package business;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a customer support ticket in the system.
+ */
+
 public class Ticket {
     private int ticketId;
     private String description;
@@ -12,14 +16,6 @@ public class Ticket {
     private String status;
 
 
-    /**
-     * define status of the ticket*/
-    public enum status  {
-        PENDING,
-        IN_PROGRESS,
-        STALLED,
-        SOLVED
-    }
     /**
      * Constructor to get a new ticket
      * @param ticketId ID of the ticket
