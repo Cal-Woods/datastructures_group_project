@@ -106,7 +106,7 @@ public class PriorityQueue {
      * the method should return the number of elements in the queue
      * @return number of elements
      * */
-    public int size() {
+    public int count() {
         return this.numElements;
     }
 

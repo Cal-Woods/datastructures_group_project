@@ -45,7 +45,7 @@ public class Main {
             //If not authenticated
             if(authenticatedUser == null) {
                 //Print options
-                System.out.println("Please choose an option?");
+                System.out.println("\nPlease choose an option?");
 
                 System.out.print("1) Login(If no users are registered, you will have to register)\n2) Register\nAny other key to exit\nOption: ");
 
@@ -222,7 +222,7 @@ public class Main {
      * @auth
      *  Cal Woods
      */
-    private static boolean registerSys(HashMap compare) {
+    private static boolean registerSys(HashMap compare) throws FileNotFoundException, IOException{
         //Declare Scanner set to System.in
         Scanner scanner = new Scanner(System.in);
 
@@ -242,7 +242,7 @@ public class Main {
         System.out.println("\nYou will be required to provide a new username & password.");
 
         //Print prompt
-        System.out.println("\nUsername(No spaces allowed): ");
+        System.out.print("\nUsername(No spaces allowed): ");
         //Store input
         String username = scanner.next();
 
@@ -303,6 +303,9 @@ public class Main {
                 //Put new User() into given HashMap
                 compare.put(username, new User(username, password));
 
+                //Store user in file
+                storeUser(USER_STORE_DIR, USER_STORE_FILE, authenticatedUser);
+
                 return true;
             }
             else {
@@ -320,13 +323,19 @@ public class Main {
 
                 //Add to users HashMap
                 compare.put(username, agent);
+
+                //Call storeUser() to store new user in file
+                storeUser(USER_STORE_DIR, USER_STORE_FILE, agent);
             }
         }
         else if(input.equalsIgnoreCase("user")) {
             //Place new User in given HashMap compare
-            compare.put(username, new User(username, password));
-        }
+            User userObj = new User(username, password);
 
+            compare.put(username, userObj);
+
+            storeUser(USER_STORE_DIR, USER_STORE_FILE, userObj);
+        }
         //Store new User/Agent in filePath
         return true;
     }
@@ -341,7 +350,7 @@ public class Main {
      * 
      * @see Note To be used as helper for registerSys() method.
      */
-    private boolean storeUser(String dirPath, String filePath, User user) throws FileNotFoundException, IOException{
+    private static boolean storeUser(String dirPath, String filePath, User user) throws FileNotFoundException, IOException{
         //validation
         if(filePath == null) {
             //Print error message
@@ -362,26 +371,27 @@ public class Main {
             return false;
         }
 
+        //Declare two File objects
+        File directory = new File(dirPath);
+        File file = new File(filePath);
+
         //Check if given file path exists
-        if(!new File(dirPath).exists()) {
+        if(!file.exists()) {
             //Create fiile
-            new File(dirPath).mkdir();
-        }
-        
-        //Check if given file path exists
-        if(!new File(filePath).exists()) {
-            //Create fiile
-            new File(filePath).createNewFile();
+            directory.mkdir();
+            file.createNewFile();
         }
 
         //Declare FileWriter to write to file
-        FileWriter write = new FileWriter(new File((dirPath+"/"+filePath)));
+        FileWriter write = new FileWriter(file, true);
 
-        write.write(user.getUsername()+":"+user.getPassword()+":");
+        write.write((user.getUsername()+":"+user.getPassword()+":"));
         //Check user type
         if(user instanceof Agent) {
-            write.write(((Agent) user).getAgentName()+":"+((Agent) user).getAgentID()+":");
+            write.write((((Agent) user).getAgentName()+":"+((Agent) user).getAgentID()+":"));
         }
+
+        write.close();
         return true;
     }
 }
