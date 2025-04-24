@@ -92,4 +92,22 @@ public class PriorityQueue {
 	// 	}
 	// 	numElements++;
 	// }
+
+    /**
+     * check if queue is empty
+     * the method should return empty if queue is empty
+     * @return true if there is nothing; false if otherwise
+     * */
+    public boolean isEmpty() {
+        return this.numElements == 0;
+    }
+    /**
+     * check amount of elements in the queue
+     * the method should return the number of elements in the queue
+     * @return number of elements
+     * */
+    public int size() {
+        return this.numElements;
+    }
+
 }

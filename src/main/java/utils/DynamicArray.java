@@ -8,7 +8,7 @@ public class DynamicArray {
 
     public DynamicArray() {
         this.numElements = 0;
-        array = new Entry[STARTING_SIZE];
+        this.array = new Entry[STARTING_SIZE];
     }
 
     /**
@@ -91,11 +91,11 @@ public class DynamicArray {
         }
 
         for (int i = 0; i < numElements - 1; i++) {
-            if (array[i] == entry) {
+            if (this.array[i] == entry) {
                 array[i] = array[i + 1];
             }
         }
-        array[numElements - 1] = null;
+        array[this.numElements - 1] = null;
 
     }
     //private helper method
