@@ -83,6 +83,60 @@ public class Main {
             }
         }
     }
+    /**
+     * allows the user to submit a support ticket  which adds to the PriorityQueue
+     * the support ticket should have ticket description,priority level which goes from 1 to 5.
+     * @param user the authenticated user submitting the ticket.
+     * @param keyboard scanner for reading the input
+     * author Jerome
+     */
+
+    private static void OpenTicket(User user, Scanner keyboard) {
+        //welcomes the user
+        System.out.println("Welcome," + user.getUsername());
+        //should ask ticket details
+        System.out.println("Submit a ticket below");
+
+        // the ticket should ask for ticket description
+        System.out.print("Enter ticket description: ");
+        String ticketDescription = keyboard.nextLine();
+        //the ticket should ask for a priority value(1-5)
+        int priority = 0;
+        while (priority < 1 || priority > 5) {
+            System.out.print("Enter ticket priority(1 =low, 5=high): ");
+
+            /**
+             * the method should allow an integer only!(1-5)
+             * @ throws NumberFormatException if input is not a valid integer i.e 4.5
+             * author Jerome
+             */
+            try{
+                priority = Integer.parseInt(keyboard.nextLine());
+                if(priority < 1 || priority > 5) {
+                    System.out.println("Ticket priority must be between 1 and 5.");
+                }
+            }catch(NumberFormatException e) {
+                System.out.println("Invalid number.Enter a priority between 1 and 5.");
+            }
+        }
+        /**
+         * generate a new ticket ID
+         */
+        int ticketId = new Random().nextInt();
+        /**
+         * method displays a ticket with details
+         * @param ticketId an ID for the ticket
+         * @param ticketDescription ticket with its description
+         * @param priority the priority has to be between (1-5)
+         * @param user.getUsername the username of the reporting user
+         * author Jerome*/
+        Ticket ticket = new Ticket(ticketId,ticketDescription,priority,user.getUsername());
+        /**
+         * Adds the created ticket in the PriorityQueue of open ticket*/
+        openTicketsQueue.add(ticket);
+
+        System.out.println("Ticket submitted successfully" + ticket);
+    }
 
     /**
      * Initialises application HashMap by reading a file from a given directory path & a file name.
