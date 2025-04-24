@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import utils.HashMap;
-
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,6 +15,11 @@ public class Main {
     //Class variables
     private static final String USER_STORE_DIR = "persistent-data";
     private static final String USER_STORE_FILE = USER_STORE_DIR+"/Users";
+    private static final String TICKET_STORE_FILE = USER_STORE_DIR+"/Tickets";
+
+    private static PriorityQueue openTicketsQueue = new PriorityQueue();
+
+
     
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
@@ -58,6 +63,7 @@ public class Main {
                 running = false;
             }
         }
+
 
         //TODO - Collins, Jerome: Add data structures for storing open tickets, closed tickets: PriorityQueue, LinkedList
 }
