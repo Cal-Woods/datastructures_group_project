@@ -15,6 +15,11 @@ public class Main {
     //Class variables
     private static final String USER_STORE_DIR = "persistent-data";
     private static final String USER_STORE_FILE = USER_STORE_DIR+"/Users";
+    private static final String TICKET_STORE_FILE = USER_STORE_DIR+"/Tickets";
+
+    private static PriorityQueue openTicketsQueue = new PriorityQueue();
+
+
 
     //Declare authenticatedUser
     private static User authenticatedUser = null;
@@ -65,6 +70,7 @@ public class Main {
                     running = false;
                 }
         }
+
 
         
             //Check if authenticatedUser is NOT null
