@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import utils.HashMap;
+
+import java.util.Random;
 import java.util.Scanner;
+
+import business.Agent;
 import business.User;
 
 public class Main {
@@ -21,7 +25,7 @@ public class Main {
         //Print message
         System.out.println("\nYou must login before you can access this application. Choose to login or register below.");
 
-        //Declare user
+        //Declare authenticatedUser
         User authenticatedUser = null;
 
         //Declare running boolean
@@ -48,8 +52,7 @@ public class Main {
                 authenticatedUser = loginSys(users);
             }
             else if(option.equals("2")) {
-                //TODO: make registration system
-                throw new UnsupportedOperationException("Registration feature coming soon...");
+                boolean registerSuccess = registerSys(users);
             }
             else {
                 running = false;
@@ -185,5 +188,113 @@ public class Main {
         System.out.println("\nThere have been too many incorrect attempts! Please try to login again.");
 
         return null;
+    }
+
+
+    private static boolean registerSys(HashMap compare) {
+        //Declare Scanner set to System.in
+        Scanner scanner = new Scanner(System.in);
+
+        //Print message
+        System.out.println("\nRegister below, We will require a username and password. Here are some things to note:\n  Username must be unique\n  Password must be at least 8 characters in length\nBasic user or agent");
+
+        //Print prompt
+        System.out.print("\nWould you like to register as a user or agent('user'/'agent' without quotes): ");
+
+        //Store input
+        String input = scanner.next();
+
+        //Clear scanner buffer
+        scanner.nextLine();
+
+        //Print message
+        System.out.println("\nYou will be required to provide a new username & password.");
+
+        //Print prompt
+        System.out.println("\nUsername(No spaces allowed): ");
+        //Store input
+        String username = scanner.next();
+
+        scanner.nextLine();
+
+        //Repeat
+        System.out.print("Password: ");
+
+        String password = scanner.nextLine();
+
+        System.out.print("Re-enter password: ");
+        String confirmPass = scanner.nextLine();
+
+        //Validate password
+        while(!password.equals(confirmPass)) {
+            System.out.println("Password do not match! They must match!");
+
+            System.out.print("\nPlease re-enter password!: ");
+            password = scanner.nextLine();
+            System.out.print("Confirm password: ");
+            confirmPass = scanner.nextLine();
+        }
+
+        while(password.length() < 8) {
+            System.out.println("Password cannot be less than 8 characters!");
+
+            System.out.print("\nPlease re-enter password!: ");
+            password = scanner.nextLine();
+            System.out.print("Confirm password: ");
+            confirmPass = scanner.nextLine();
+        }
+
+        if(input.equalsIgnoreCase("agent")) {
+            System.out.println("\nWe will require your name as you are an agent. If you do not consent, Type 'N', and you will be registered as a basic User, otherwise, type 'continue'):");
+
+            System.out.print("\nConsent: ");
+            String consent = scanner.next();
+
+            scanner.nextLine();
+
+
+            //While consent NOT equals n or continue
+            while(!consent.equalsIgnoreCase("n") && !consent.equalsIgnoreCase("continue")) {
+                    //Get consent again
+                    System.out.println("\nYou typed "+consent+" which is not a valid consent option! Please type either 'n' or 'continue");
+
+                    System.out.print("\nConsent: ");
+
+                    consent = scanner.next();
+
+                    //Clear scanner token
+                    scanner.nextLine();
+            }
+
+            //Check consent
+            if(consent.equalsIgnoreCase("n")) {
+                System.out.println("\nYou have indicated that you would not like to give a name. Registering you as a basic User!");
+                //Put new User() into given HashMap
+                compare.put(username, new User(username, password));
+
+                return true;
+            }
+            else {
+                System.out.print("\nPlease enter a name: ");
+                String name = scanner.nextLine();
+
+                //random number generator to generate agent id
+                Random rand = new Random();
+
+                //Number to multiply rand, big to mitigate collisions
+                final int MAX_USERS = 2500;
+
+                //Declare new Agent object set to given details
+                Agent agent = new Agent(username, password, rand.nextInt(MAX_USERS), name);
+
+                //Add to users HashMap
+                compare.put(username, agent);
+            }
+        }
+        else if(input.equalsIgnoreCase("user")) {
+            //Place new User in given HashMap compare
+            compare.put(username, new User(username, password));
+        }
+        return true;
     }
 }
