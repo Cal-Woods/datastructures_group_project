@@ -1,15 +1,18 @@
 package utils;
 
+import business.Ticket;
 
-import business.User;
-
+/**
+ * A singly linked list to store Ticket objects in the system.
+ * Supports basic operations such as add, get, remove, and size checking.
+ */
 public class LinkedList {
     private int numElements;
     private Node first;
     private Node last;
 
     /**
-     * No-argument constructor initializing the list to default settings.
+     * Constructs an empty LinkedList.
      */
     public LinkedList() {
         this.first = null;
@@ -18,23 +21,26 @@ public class LinkedList {
     }
 
     /**
-     * Returns the number of users in the list.
+     * Returns the number of tickets in the list.
+     *
+     * @return the number of elements in the list
      */
     public int size() {
         return numElements;
     }
 
     /**
-     * Adds a user to the end of this list.
-     * @param user the User to be added to the list
-     * @throws IllegalArgumentException if the user is null
+     * Adds a Ticket to the end of the list.
+     *
+     * @param ticket the Ticket to add
+     * @throws IllegalArgumentException if the ticket is null
      */
-    public void add(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("Cannot add null user to list");
+    public void add(Ticket ticket) {
+        if (ticket == null) {
+            throw new IllegalArgumentException("Cannot add null ticket to list");
         }
 
-        Node newNode = new Node(user);
+        Node newNode = new Node(ticket);
 
         if (first == null) {
             first = newNode;
@@ -48,19 +54,22 @@ public class LinkedList {
     }
 
     /**
-     * Returns true if this list contains no users.
+     * Checks if the list is empty.
+     *
+     * @return true if the list contains no elements, false otherwise
      */
     public boolean isEmpty() {
         return numElements == 0;
     }
 
     /**
-     * Returns the user at the specified position in this list.
-     * @param index position of the user to retrieve
-     * @return the User at the specified index
-     * @throws IndexOutOfBoundsException if index is out of range
+     * Retrieves the Ticket at a specific index.
+     *
+     * @param index the position of the ticket to retrieve
+     * @return the Ticket at the specified index
+     * @throws IndexOutOfBoundsException if index is out of bounds
      */
-    public User get(int index) {
+    public Ticket get(int index) {
         if (isEmpty() || index < 0 || index >= numElements) {
             throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements - 1) + ", supplied: " + index);
         }
@@ -74,16 +83,18 @@ public class LinkedList {
     }
 
     /**
-     * Removes the user at the specified position from the list.
-     * @param pos position of the user to remove
-     * @return the removed User
+     * Removes the Ticket at a specified index.
+     *
+     * @param pos the position of the ticket to remove
+     * @return the removed Ticket
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public User remove(int pos) {
+    public Ticket remove(int pos) {
         if (isEmpty() || pos < 0 || pos >= numElements) {
             throw new IndexOutOfBoundsException("Index must be between 0 and " + (numElements - 1) + ", supplied: " + pos);
         }
 
-        User removed;
+        Ticket removed;
 
         if (pos == 0) {
             removed = first.data;
@@ -114,13 +125,18 @@ public class LinkedList {
     }
 
     /**
-     * Internal Node class to hold User objects.
+     *  inner class representing a node in the linked list.
      */
-    public static class Node {
-        private User data;
+    private static class Node {
+        private Ticket data;
         private Node next;
 
-        public Node(User data) {
+        /**
+         * Constructs a new Node with the given Ticket.
+         *
+         * @param data the Ticket to store in this node
+         */
+        public Node(Ticket data) {
             this.data = data;
             this.next = null;
         }
