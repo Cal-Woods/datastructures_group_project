@@ -12,7 +12,7 @@ import java.util.Scanner;
 import business.*;
 import utils.*;
 
-public class  Main {
+public class Main {
     //Class variables
     private static final String USER_STORE_DIR = "persistent-data";
     private static final String USER_STORE_FILE = USER_STORE_DIR+"/Users";
