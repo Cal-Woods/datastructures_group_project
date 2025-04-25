@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,8 +26,7 @@ public class  Main {
     private static User authenticatedUser = null;
     public static void main(String[] args) throws IOException {
         HashMap users = initUsersMap(USER_STORE_DIR, USER_STORE_FILE);
-        PriorityQueue openTickets;
-        LinkedList closedTickets;
+        LinkedList closedTickets = new LinkedList();
 
         //Start of program
         System.out.println("Welcome to the IT ticket management program! Once logged in, you may submit a ticket to the application, or if you are an Agent, you may manage tickets.\n");
@@ -77,7 +77,29 @@ public class  Main {
             else if(authenticatedUser !=  null) {
                 //TODO - Add all logic here
 
-                System.out.println("\n"+authenticatedUser);
+                System.out.println("\nWelcome "+authenticatedUser.getUsername()+"!\nPlease choose from the list of menu options:\n1)Create a new ticket\n2)Remove a ticket\n3)Change ticket status");
+
+                String menuChoice = keyboard.nextLine();
+
+                //Validate menuChoice
+                if(menuChoice.equals("1")) {
+                    OpenTicket(keyboard);
+                }
+                else if(menuChoice.equals("2")) {
+                    System.out.print("\nChoose a ticket number to remove(Must be between 0 and size of list - 1, size = "+closedTickets.size()+"):");
+
+                    try {
+                        int remove = keyboard.nextInt();
+                    }
+                    catch(InputMismatchException e) {
+                        System.out.println("\nThat is not a number!");
+                    }
+
+                    //throw new UnsupportedOperationException("Coming soon...");
+                }
+                else if(menuChoice.equals("3")) {
+                    throw new UnsupportedOperationException("Coming soon...");
+                }
 
                 return;
             }
@@ -91,7 +113,7 @@ public class  Main {
      * author Jerome
      */
 
-    private static void OpenTicket(authenticatedUser, Scanner keyboard) {
+    private static void OpenTicket(Scanner keyboard) {
         //welcomes the user
         System.out.println("Welcome," + authenticatedUser.getUsername());
         //should ask ticket details
@@ -133,9 +155,9 @@ public class  Main {
         Ticket ticket = new Ticket(ticketId,ticketDescription,priority,authenticatedUser.getUsername());
         /**
          * Adds the created ticket in the PriorityQueue of open ticket*/
-        openTicketsQueue.add(ticket);
+        openTicketsQueue.enqueue(ticket);
 
-        System.out.println("Ticket submitted successfully" + ticket);
+        System.out.println("Ticket submitted successfully" + openTicketsQueue.peek());
     }
 
     /**
