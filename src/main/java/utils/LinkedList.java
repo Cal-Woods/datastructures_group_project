@@ -5,6 +5,8 @@ import business.Ticket;
 /**
  * A singly linked list to store Ticket objects in the system.
  * Supports basic operations such as add, get, remove, and size checking.
+ * 
+ * @author Collins Igharo
  */
 public class LinkedList {
     private int numElements;
@@ -53,6 +55,49 @@ public class LinkedList {
         numElements++;
     }
 
+    /**Adds a given Ticket object to a linkedList instance at given position.
+     * @param pos Given position
+     * @param ticket Given Ticket object
+     * 
+     * @author Cal Woods
+     * 
+     * @throws IllegalArgumentException If given Ticket is null
+     * @throws IndexOutOfBoundsException If given position is not within a range of 0 - size of LinkedList
+     */
+    public void add(int pos, Ticket ticket) {
+        if (ticket == null) {
+            throw new IllegalArgumentException("Cannot add null ticket to list");
+        }
+        if(pos < 0 || pos >= this.numElements) {
+            throw new IndexOutOfBoundsException("Given position was "+pos+" which is out of range, must be between 0 & actual size of list!");
+        }
+        if(this.first == null) {
+            throw new IllegalArgumentException("The LinkedList instance was null!");
+        }
+
+        Node newNode = new Node(ticket);
+
+        //Store element
+        Node current = this.first;
+        Node prev = null;
+
+        //Go to given pos
+        for (int i = 0; i < pos; i++) {
+            //Set prev to current
+            prev = current;
+
+            //Move current
+            current = current.next;
+        }
+
+        //Link prev.next to newNode
+        prev.next = newNode;
+
+        //Link newNode.next to current.next
+        newNode.next = current.next;
+
+        numElements++;
+    }
     /**
      * Checks if the list is empty.
      *
