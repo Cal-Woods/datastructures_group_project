@@ -11,6 +11,11 @@ public class PriorityQueue {
     private int numElements;
     private LinkedList list;
 
+    //Constructors
+    public PriorityQueue() {
+        this.numElements = 0;
+        this.list = new LinkedList();
+    }
     /**
      * Gets the first object in queue.
      * 
@@ -20,12 +25,12 @@ public class PriorityQueue {
      * 
      * @author Cal Woods
      */
-    // public Ticket peek() {
-	// 	if (list.isEmpty() == true) {
-	// 		throw new IllegalStateException("Queue contains 0 elements!");
-	// 	}
-	// 	return list.get(0);
-	// }
+    public Ticket peek() {
+		if (list.isEmpty() == true) {
+			throw new IllegalStateException("Queue contains 0 elements!");
+		}
+		return list.get(0);
+	}
     
     /**
      * Removes the front Ticket from the queue.
@@ -36,18 +41,18 @@ public class PriorityQueue {
      * 
      * @throws IllegalStateException If queue is empty.
      */
-	// public Ticket dequeue() {
-	// 	if (list.isEmpty() == true) {
-	// 		throw new IllegalStateException("Queue contains 0 elements!");
-	// 	}
+	public Ticket dequeue() {
+		if (list.isEmpty() == true) {
+			throw new IllegalStateException("Queue contains 0 elements!");
+		}
 
-	// 	//Remove element at front of list
-	// 	Ticket returned = list.remove(0);
+		//Remove element at front of list
+		Ticket returned = list.remove(0);
 		
-	// 	numElements--;
+		numElements--;
 		
-	// 	return returned;
-	// }
+		return returned;
+	}
 
     /**
      * Adds a given Ticket object to the queue at correct place based on Ticket priority.
@@ -56,42 +61,44 @@ public class PriorityQueue {
      * 
      * @return Nothing
      * 
+     * @author Cal Woods
+     * 
      * @throws NullPointerException If given ticket was null.
      */
-	// public void enqueue(Ticket ticket) {
-	// 	if (ticket == null) {
-	// 		throw new NullPointerException("Given ticket was null!");
-	// 	}
-	// 	if(list.isEmpty() == true) {
-	// 		list.add(ticket);
+	public void enqueue(Ticket ticket) {
+		if (ticket == null) {
+			throw new NullPointerException("Given ticket was null!");
+		}
+		if(list.isEmpty() == true) {
+			list.add(ticket);
 			
-	// 		numElements++;
+			numElements++;
 			
-	// 		return;
-	// 	}
+			return;
+		}
 		
-	// 	//If Ticket at front of list has a greater priority than given ticket, insert in the next slot
-	// 	if (ticket.getPriority() < list.get(0).getPriority()) {
-	// 		//Add to the start of the list
-	// 		list.add(0, ticket);
-	// 	}
-	// 	//If Ticket at end of list has a lesser priority
-	// 	else if (ticket.getPriority() > list.get(list.size() - 1).getPriority()) {
-	// 		//Always add to end of list in this case
-	// 		list.add(ticket);
-	// 	} 
-	// 	else {
-	// 		//In this case, it will be an O(n) linear search for the correct insert position
-	// 		for (int i = 0; i < list.size(); i++) {
-	// 			if (ticket.getPriority() < list.get(i).getPriority()) {
-	// 				list.add(i, ticket);
+		//If Ticket at front of list has a greater priority than given ticket, insert in the next slot
+		if (ticket.getPriority() < list.get(0).getPriority()) {
+			//Add to the start of the list
+			list.add(0, ticket);
+		}
+		//If Ticket at end of list has a lesser priority
+		else if (ticket.getPriority() > list.get(list.size() - 1).getPriority()) {
+			//Always add to end of list in this case
+			list.add(ticket);
+		} 
+		else {
+			//In this case, it will be an O(n) linear search for the correct insert position
+			for (int i = 0; i < list.size(); i++) {
+				if (ticket.getPriority() < list.get(i).getPriority()) {
+					list.add(i, ticket);
 					
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// 	numElements++;
-	// }
+					break;
+				}
+			}
+		}
+		numElements++;
+	}
 
     /**
      * check if queue is empty
