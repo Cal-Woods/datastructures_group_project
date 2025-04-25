@@ -11,7 +11,7 @@ import java.util.Scanner;
 import business.*;
 import utils.*;
 
-public class Main {
+public class  Main {
     //Class variables
     private static final String USER_STORE_DIR = "persistent-data";
     private static final String USER_STORE_FILE = USER_STORE_DIR+"/Users";
@@ -86,14 +86,14 @@ public class Main {
     /**
      * allows the user to submit a support ticket  which adds to the PriorityQueue
      * the support ticket should have ticket description,priority level which goes from 1 to 5.
-     * @param user the authenticated user submitting the ticket.
+     * @param authenticateUser the authenticated user submitting the ticket.
      * @param keyboard scanner for reading the input
      * author Jerome
      */
 
-    private static void OpenTicket(User user, Scanner keyboard) {
+    private static void OpenTicket(authenticatedUser, Scanner keyboard) {
         //welcomes the user
-        System.out.println("Welcome," + user.getUsername());
+        System.out.println("Welcome," + authenticatedUser.getUsername());
         //should ask ticket details
         System.out.println("Submit a ticket below");
 
@@ -130,7 +130,7 @@ public class Main {
          * @param priority the priority has to be between (1-5)
          * @param user.getUsername the username of the reporting user
          * author Jerome*/
-        Ticket ticket = new Ticket(ticketId,ticketDescription,priority,user.getUsername());
+        Ticket ticket = new Ticket(ticketId,ticketDescription,priority,authenticatedUser.getUsername());
         /**
          * Adds the created ticket in the PriorityQueue of open ticket*/
         openTicketsQueue.add(ticket);
